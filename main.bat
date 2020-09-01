@@ -1,3 +1,3 @@
 ./venv/Scripts/activate.bat
 
-python.exe main.py
+python.exe __init__.py
