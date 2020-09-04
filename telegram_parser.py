@@ -69,11 +69,10 @@ def clean_after_parse():
         clear_spaces_between_rows(path)
         with open(path, 'r') as fin:
             data = fin.readlines()
-            data = [i for i in data if i != '\n']
-            if len(data):
-                data[-1] = data[-1].replace('\n', '')
+        data = [i.replace('\n', '').replace(' ', '') for i in data if i != '\n']
+        data = [item for item in data if item != '']
         with open(path, 'w') as fout:
-            print(''.join(data), file=fout)
+            print('\n'.join(data), file=fout)
     print('Finish cleaning extra-enters\n')
 
 
@@ -82,11 +81,11 @@ def delete_all_same(path):
         data = fin.readlines()
     rest = list()
     for item in data:
-        if item not in rest:
-            rest.append(item)
+        if item.replace('\n', '') not in rest and item.replace('\n', '') != '':
+            rest.append(item.replace('\n', ''))
     with open(path, 'w') as fout:
         response = [f'{rest[j]}\n' for j in range(len(rest)) if j != len(rest) - 1]
-        response.append(str(rest[-1]))
+        response.append(str(rest[-1]).replace('\n', ''))
         print(''.join(response), file=fout)
 
 
