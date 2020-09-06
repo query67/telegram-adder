@@ -196,32 +196,36 @@ def get_active_window():
 
 
 if __name__ == '__main__':
-    telegram_path = config['PATH']['telegram']
-    auto.alert('Warning! The program starts. Do not turn off it.')
-    if '-A' in sys.argv:
-        start_telegram(telegram_path)
-        sleep(2)
-        set_contact_list()
-    elif '-C' in sys.argv:
-        start_telegram(telegram_path)
-        sleep(2)
-        add_contact_list_to_group()
-    elif '-U' in sys.argv:
-        start_telegram(telegram_path)
-        sleep(2)
-        add_users()
-    elif '-P' in sys.argv:
-        parse_data()
-    else:
-        parse_data()
-        start_telegram(telegram_path)
-        set_contact_list()
-        # Add all contacts
-        restart_telegram()
-        start_telegram(telegram_path)
-        add_contact_list_to_group()
-        # Add all users
-        restart_telegram()
-        start_telegram(telegram_path)
-        add_users()
-    auto.alert('The program finished')
+    try:
+        telegram_path = config['PATH']['telegram']
+        auto.alert('Warning! The program starts. Do not turn off it.')
+        if '-A' in sys.argv:
+            start_telegram(telegram_path)
+            sleep(2)
+            set_contact_list()
+        elif '-C' in sys.argv:
+            start_telegram(telegram_path)
+            sleep(2)
+            add_contact_list_to_group()
+        elif '-U' in sys.argv:
+            start_telegram(telegram_path)
+            sleep(2)
+            add_users()
+        elif '-P' in sys.argv:
+            parse_data()
+        else:
+            parse_data()
+            start_telegram(telegram_path)
+            set_contact_list()
+            # Add all contacts
+            restart_telegram()
+            start_telegram(telegram_path)
+            add_contact_list_to_group()
+            # Add all users
+            restart_telegram()
+            start_telegram(telegram_path)
+            add_users()
+        auto.alert('The program finished')
+    except Exception as err:
+        print(f"\t{err}\t")
+    input('Для закрытия нажмите любую клавишу')

@@ -1,1 +1,1 @@
-python __init__.py
+cd ./venv/Scripts && activate.bat && cd ../../ && python __init__.py
