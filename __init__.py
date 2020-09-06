@@ -28,6 +28,22 @@ def start_telegram(path):
     sleep(2)
 
 
+def contact_not_registered(number):
+    global height, width
+    os.chdir('./find_pic')
+    not_registered = auto.locateCenterOnScreen('try.png', grayscale=True)
+    if not_registered is None:
+        not_registered = auto.locateCenterOnScreen('try1.png', grayscale=True)
+    os.chdir('../')
+    if not_registered is not None:
+        with open('./database/drop_names.txt', 'a') as fout:
+            print(f'{number}\n', file=fout)
+        pos = (width * 0.9, height * 0.5)
+        sleep(0.005)
+        auto.click(button='left', clicks=1)
+        sleep(0.005)
+
+
 def restart_telegram():
     sleep(1)
     print('\n')
@@ -44,6 +60,8 @@ def add_contact(name, number):
             pos = (int(width * 5.2 // 12), int(height * 0.76))
         if pos is None and img == 'menu.png':
             pos = auto.locateOnScreen('menu1.png', grayscale=True)
+            if pos is None:
+                pos = (70, 40)
         auto.moveTo(pos, duration=0.1)
         auto.click(button='left', clicks=1, interval=0.05)
         sleep(0.03)
@@ -53,6 +71,7 @@ def add_contact(name, number):
     pos = auto.locateOnScreen('create.png', grayscale=True)
     auto.moveTo(pos, duration=0.1)
     auto.click(button='left', clicks=1, interval=0.05)
+    contact_not_registered(number)
     os.chdir('../')
 
 
